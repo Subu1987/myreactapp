@@ -1,0 +1,109 @@
+// React:
+// React is something that stand between library & framework.cause its a library & also give a basic setup of project a very small framework.its a library because its give lots of functions to be used & also a framework because it give basic setup & basic components to start with our project.we can say its 80% library & 20% framework.
+// React is basically javascript library 
+// & its a frontend framework why its called frontend framework because its create interective user interfaces
+// we can also use  HTML / CSS/ JS to create any dynamic webpages but React have best approach to do this things just like we use express instead of http module.internally React written in javascript & its give us lots of functionalities to be used.
+
+// Benefits of using React:
+// 1) reusability:
+// so whatever we are doing with HTML/CSS/JS that can be done by React in a best approach.
+// when we create something in HTML/CSS/JS we have to write the same code again & again but in React we used components
+// a components is nothing but a part of our page 
+// React follows components based approach React tells to create everything as components in a isolated fashion 
+// header separetly,footer separetly,every components separetly then we regroup them or group them to create a webpages.
+// benefits of creating components separetly, its created separetly that means it doesnt depends on any other components so that we can use them n- number of times.
+// React tells us divide our page into components,all the components will be isolated they will be created in a separete fashion
+// & we arrange them group them such a order so that our webpage get created
+// & the best part of creating a component separetly is we can use them at any point of time at any page n-number of times
+
+// 2) faster:
+// the way fb created this framework,the way we follow,the way we properly divided our components that makes our websites,webpages faster.
+
+// 3) code maintainability/Readability:
+// 1st thing is that we are dividing our page into components,2nd thing is that we are gonna reuse that component again & again
+// we are not gonna write the same code again & again so in this case the code will be less & the work still be more & good
+// so if the code will less & work will be more we are definately getting code maintainability.our code look small but our application look still complete.
+// 2nd thing is that we are dividing our components properly so if in future we decide to delete some component then no other component get hurt.
+
+// 4) functions:
+// its gives us a lots of functions that gonna help us to make our task easier.functions that gonna help us to display data, integrate html & js, handling events.
+// to integrate data from js to html we have to puts lot of efforts, 1st loop through the array of objects then generate a string then by using document.getElementById we display the data, this can be done easily by React
+
+
+// how to install React project/library in our PC:
+// 1st of all to start with react we need something called node js install in our PC
+// npm is node package manager that help us to install,uninstall,update,manage,delete javascript libraries & modules 
+// npm help us to install the tool that we need to install & create a React project
+// & the tool name is create-react-app just like nodemon
+// by using npm we install the create-react-app tool then use it 
+// but we can also directly use it without installing it by npx-node package executer
+// npx-node package executer is basically runs a tool or execute a package of node directly from the internet so basically dont have to install it.
+// now to start with it we install npm create-react-app tool
+// then after installing the tool we create a our 1st React project like this : create-react-app myapp
+// now myapp folder we open it with vs code we get -
+// package.json ~the configuration file of our project(name,author,licence,dependencies,scripts etc)
+// the thing we install its react project & which is using react library,so we are get a small project setup that is nothing but a 
+framework
+// package-lock.json have all the description of our all the modules,library dependencies
+// README.md is a file where we mentain few things related to our project so that someone can open & read about it.
+// gitignore is place where we store files & folder which we dont want to get uploaded in git.
+// node modules have all the third party libraries holding
+
+// public folder:
+// this is the folder where we store everything,all media related files 
+// index.html file inside public folder is the main & only html file we have that executes & display on the webpage 
+// <div id="root"></div> inside this div everything loads 
+
+// single page application:
+// A single-page application (SPA) is a web application or website that interacts with the user by dynamically rewriting the current web page with new data from the web server, instead of the default method of a web browser loading entire new pages.
+// React creates single page application
+// we create components separetely & then loads them in a single html file 
+// 1st we add the components to index.html file then remove the specific component then add one more component as per need without changing the main html file 
+// for different click or anything we only changing the components
+// so in React if someone navigate from products to about us no need to change pages we only need to remove some components & add some components.the html page remains the same thats why its called single page application.
+// single page application means where only a single file where everything is loading 
+// now in case of React, there will be a main component App that loads into our main html file index.html file 
+// & all the others small components will be loads in our App component App 
+
+
+// src:
+// the most important folder that we are gonna work 
+// we dont need App.test.js, setupTests.js, reportWebVitals.js file for now cause those for testing purpose
+// & we also remove those files dependencies from index.js file 
+// App.js, our main app component where all the sub component loads written in js 
+// App.css,this is the css file for the App.js component
+// index.css, its a global css,it can be applied to all the components
+// logo.png, its just a image or logo file 
+// index.js file responsible for loading App component(main component) in to the html file div element with root id
+
+
+// App.js:
+// this is our main component
+// this is a component looks like 
+// its nothing but a function that returns some html 
+// whenever we want we can use that component & in that place html will be there
+// in this case component is nothing but a function that returns some html 
+// & whenever we want we can use this component or function & in that exact place html will be loaded 
+// just like in node, when we create custom modules 1st we have to exports it by module.exports then we can require it & use it 
+// just like this, we have exports default App; here we are exporting App() function which is nothing but our component
+// a function that returns some html consired as component
+// a component is nothing but a part of web page 
+
+// index.js:
+// in index.js file we are importing App component as a tag by referencing the folder "./App"
+// like this: import App from './App';
+// now this App component directly using as a html tag & we are rendering it directly into div element of index.html which is our main html page by using document.getElementById('root')
+// now our whole html code written in App() function inside the div element of html page 
+// so this index.js file responsible for loading App component(main component) in to the html file div element
+// output wise a part of page consired as component
+// & input wise a function that returns some html consired as component
+
+// now to run this project we write npm start in our vs code terminal 
+
+// summary:
+// what is react
+// how to install it 
+// what are the file types & how its work 
+// what is components
+
+

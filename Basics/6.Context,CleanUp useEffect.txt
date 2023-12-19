@@ -1,0 +1,178 @@
+// Context :
+
+// we know that we create components in react,everything is component & we divide everything as a component
+// & every component has state, 
+// what is state ?
+// state is nothing but way of managing data for that particular component
+// & its a special kind of data, cause if data changes components get re-rendered
+// react components structure is like tree like structure where parent children,parent children continued
+// its like hiererky,component inside component,component inside another component.
+// we pass data from one component to another component that we know
+// but what if we want pass data from top level component to 3rd or 5th level component then what?
+// right now we know that there is only one way of passing data its called props
+// so what we do simply pass the data to parent component as an attribute
+// like this: <Demo name="subroto"/>
+// so we can access it in Demo component as a props object
+// function Demo(props){
+    return(
+        <h1>{props.name}</h1>
+    )
+}
+// this is the only way we know.
+// now what if we have to pass data from 1st component to the 15th component
+// what we have to do,from 1st component to 2nd component via props,then 2nd component to 3rd component via props
+// so on we will reach the 15th component & this is something called as props drilling
+// it will work but this is not the good way, code will long, unmanagable,complicated
+// for this particular thing we have something called as Context.
+// by using this we can avoid props drilling
+// Context is something as global state or context that created to store the data once, which can be used though out the all components at any point of time.
+// context is provide a way to access data though out the all components at any point of time
+// before context there are something called as redux, 
+// redux is third party API & context is inbuild in react
+// Context API is integrated into the React core and requires minimal configuration. Redux is a complete state manager capable of allowing an app to undo/redo actions and provides advanced developer tooling for debugging
+
+// so the data we stored in context & can be access by any component can be a normal variable also can a state variable.
+// & if its a state variable wherever we used that in whatever components if we change the value of any of that components re-rendered
+// so any of components shared that state variable its data will also change so it kind of a global state.
+// so whenever we try to create context its should be created at top most component so that all the children component can get access
+// cause context value always moved in foward direction
+
+// how to create a context:
+// 1st we have to import it from react
+// like this : import { Context } from 'react';
+// so <App/> component is load inside the index.js files <React.StrictMode> tag
+// so we cant create context over App component but in App component everything loads inside BrowserRouter
+// but we can create context over BrowserRouter so its will the top most.
+// so we created <UserContext.Provider></UserContext.Provider>
+// wrap BrowserRouter everything inside it
+// like this : 
+
+                      <UserContext.Provider>
+
+                            <BrowserRouter>        
+                            <ul>
+                                <li>
+                                <Link to="/user"> User</Link>
+                                </li>
+                                <li>
+                                <Link to="/demo/Subrato"> Demo</Link>
+                                </li>
+                                <li>
+                                <Link to="/data"> Data</Link>
+                                </li>
+                            </ul>
+                            
+                            <Routes>
+
+                                <Route path='/user' element={<User/>}/>
+                                <Route path='/demo/:name' element={<Demo/>}/>
+                                <Route path='/data' element={<Data/>}/>
+
+                            </Routes>
+                            </BrowserRouter>
+                            
+                        </UserContext.Provider>
+
+// Provider is something that provides something that whatever we pass
+// now we create a global variable 
+// like this: let globalName = "subroto";
+// now we enclosing it in Provider
+// like this :
+// <UserContext.Provider value={globalName}>
+// so we simply create the context & simply provide the context
+// it always comes to what we put inside the Provider & the value & whatever data we want provide
+// the globalName variable can be use any where
+// so used it anywhere we have to export it
+// like this: export const dataContext = createContext();
+
+
+// how to used context
+// now we wanna use this context in Demo.js
+// for that we have to import it in Demo.js
+// like this: import { DataContext } from './App';
+// now to use it as like this:
+// let data = useContext(DataContext);
+// we get the stored data in Demo component we have to extract the value from context
+// here we are gonna use useContext hook
+// & inside it we pass the context that we created.
+// & the data we provided in Provider
+// directly available we can use it or rendered it in any point any component
+
+
+// we can also pass state variable from it.
+// like this: let [name,setName]= useState("Subrato");
+// & inside <DataContext.Provider value={globalName}> we pass it both of them as object
+// here we are passing state variable & the function that help us to set the value of state variable
+// in Demo component, we have both of this things
+// let data = useContext(DataContext);
+// now we can display data in Demo component
+// like this:  <h1>{data.name}</h1>
+
+// we can change the value of name with the help of setName function
+// like this:
+//          <button onClick={()=>{
+                data.setName("Subu");
+            }}>
+                click
+            </button>
+// now wherever this state variable used, though out all components value will also change
+// we can create multiple context & also create multiple state variable & pass it as a different object
+
+
+
+
+
+
+
+
+
+
+// clean up of useEffect:
+// garbage collection is when we create some variable at that time when program is running its using some memory but when the program closed memory should be free 
+// once the program closed whatever data memory hold its nothing it simply garbage so we clean that up
+// this is the same thing in useEffect clean up.
+// in useEffect we do lots of thing, we initialize the data then calling the network
+// now how to clean up :
+// inside the use function after the task completed at the end we return a function inside that function we write things that need to clean.
+// like this:
+            return ()=>{
+        
+      }
+// now this return function getting only times,
+// once we unmount the component & next time before any other useEffect get called.
+
+
+// now if we called a component & when its mounted at the same time we called another component we get a error 
+// like this: warning: Can't perform a React state update on an unmounted component. 
+// it means when we called the component,useEffect get called & then we shift to other component so this component get unmounted
+// but the problem is that,useEffect still calling & try to set the state variable which is no longer exist 
+// then it will create a memory leak 
+// so to avoid this what we can do?
+
+
+// one way:
+// we create a variable & make it initially true then when the component get unmounted we simply make it false
+// like this:
+// let performFetch = true;
+// return ()=>{
+    performFetch = false;
+}
+// & data state update will happen only if performFetch === true
+// if (performFetch === true){
+    setData(data);
+}
+// but here one problem is that only the data state trasfer will stop but useEffect will getting called.
+
+
+
+// best way:
+// we create a variable as an object by using AbortController;
+// like this: let controller = new AbortController();
+// then we create a variable, like this : let signal = controller.signal;
+// as an property we pass it into fetch function just to notify the backend when to abort the request
+// now to abort the request in return function, we pass this controller.abort();
+
+
+
+
+

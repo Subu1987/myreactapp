@@ -1,0 +1,196 @@
+
+// how to call network or API 
+// how to display array of data
+// Routing
+
+
+// how to call network or API:
+// network & API calling are almost same
+// in vanilla javascript we are using fetch function to call network or API similarly in react we are gonna use fetch function.
+// previously when fetch is not much good in that time peoples used axios, a third party library in react for network or API calling.
+// 1st we call fetch the data by calling network or API then we will display the data.
+// now we gonna use useEffect hook, particularly we want it to get called only for 1st time loading or mounting of component.so that when the component loads or mounts only on that time useEffect hook get called & inside it we write fetch() function which is also get called.
+// we want useEffect to get called only for 1st time loading or mounting of component for that we only pass a blank array from it.
+// now we are gonna call a API 
+// like this : 
+                                useEffect(()=>{
+                    
+                                    fetch("https://jsonplaceholder.typicode.com/users")
+                                    .then((response)=>response.json())
+                                    .then((data)=>{console.log(data)})
+                                    .catch((err)=>{console.log(err)});
+ 
+                                },[])
+// fetch function returns a promise we handle it we get the data, this data is an array of objects we want to put it as a state variable.
+// now we are gonna create a state variable so that component can re-rendered, like this : let [users,setUsers]= useState([]);
+// here we create a state variable name users, & cause its a state variable to set or change the value of it we gonna use setUsers() function. & initially we gonna store array thats why we refer an array in useState([]) hook.
+// internally its look like this : users = [];
+// so whatever data we getting by fetching the API we set it in users state variable by passing that data into setUsers(data) function.
+// internally setUsers(data) its like this users = data.
+// like this : 
+                  useEffect(()=>{
+    
+                    fetch("https://jsonplaceholder.typicode.com/users")
+                    .then((response)=>response.json())
+                      .then((data)=>{
+                    
+                    setUsers(data);
+                    console.log(users);
+                    })
+                    .catch((err)=>{console.log(err)});
+
+                },[])
+// here when we try to console the users we will get a blank array because setUsers its a async function so console.log(users) as sync task it will execute 1st, then the async task will happen
+// now we get array of objects data in users variable & we have to display that data, we know how to display data by using map function
+// the only difference between a normal variable & state variable is that while set the value we use functions to set the value of state variable.
+// but in case of display we display state variable as a normal variable.
+
+
+// to integrate javascript into JSX we have to use curly braces 
+// to integrate JSX into javascript we have to use return keyword.
+// in react the parent element should have a key
+// like this :
+                      {
+                            users.map((user,index)=>{
+
+                            return(
+
+                                <h1 key={index}>{user.name}</h1>
+                            )
+
+                            })
+                              
+                        }
+
+
+// in this case we used useEffect because we want to load the component for the 1st time while calling the API.
+// but suppose we want to call the API while clicking a button, in that time there is no use of useEffect hook. because we create our own function & then use the fetch the data. peoples think that useEffect only use for API calling but thats not the case.
+// what we do in vanilla javascript, we call the API get the data store it in a variable, but in case of react we call the API get the data but this time we store it in a state variable,so that in some cases if our data changes our component get refreshed or re-rendered.
+
+
+
+/******************************** Routing *******************************/
+
+// Routing is basically based on a path we do something.
+// if we do something based on a path or url,thats call Routing.
+// so we are using a route to do that thing, we using a path for perform that thing or reach to that thing.
+// in backend we already done that thing based on different path or routes or url we called different endpoints.
+// but here in frontend, there is no file access or database operations then why we need routing here.
+
+// in react, here only a single page index.html where our main app component loaded.& App component have all the components like header,about,service,product & contact. so normally in app component all the components loaded & displayed.what if we dont want to load all the components at once.
+// we want load different different components in there different path or url so that it feels like multiple page application but practically its a single page application.
+// in html we have different pages like index.html, product.html & we go through from one page to another page by linking them properly.
+// so apply logic like this there is a most important & famous third party package "react-router-dom", as name suggest its help us for routing.
+
+
+
+// we want to display one component in one time only based on path or url no need to add or remove component manually we need to automate it remove or add component & display it & we can achieve it by using react-router-dom third party package.
+// & to start with this logic we need to import 3 things
+// like this : import {BrowserRouter,Routes,Route} from 'react-router-dom';
+// 1st thing we will do is, create a BrowserRouter component
+// All our components will be loaded in BrowserRouter, so we have to place our components inside BrowserRouter.
+// then we gonna use Routes, in which we specify different different Routes.
+// then inside it we use <Route/> tag, & here we mentioned path & element attribute, when path is "/user" then the element that we wanna load, the User component.
+
+// like this :
+                      <BrowserRouter>
+      
+                        <Routes>
+
+                            <Route path='/user' element={<User/>}/>
+                            <Route path='/demo' element={<Demo/>}/>
+                            <Route path='/data' element={<Data/>}/>
+
+                        </Routes>
+                    
+                    </BrowserRouter>
+
+// now place of this BrowserRouter whichever path matches that component will be loaded.so wherever we place our BrowserRouter in that exact place our component will be loaded.
+// App component is our main component, so when the App component start executing 1st its execute its div,then after that BrowserRouter component, & inside of BrowserRouter whichever path matches that component will be loaded.
+// so we call the url localhost:3000/user by typing the path in browser manually it will load the User component where our BrowserRouter exist.
+
+// we can also pass props from it, like this : <Route path='/user' element={<User name=""/>}/>
+
+// we can also pass url parameters just like in node js, like this : <Route path='/demo/:name' element={<Demo/>}/>
+// we want to pass this name as a url parameter & it should received in Demo component.
+// how can we received it in Demo component for that we have to use a hook called useParams.
+
+// like this: in Demo.js 
+
+                        import {useParams} from 'react-router-dom';
+
+                        function Demo(props){
+
+                            let data = useParams();
+
+                            console.log(data);
+
+                            return(
+
+                                <div>
+                                    <h1>Demo Component</h1>
+                                </div>
+
+                            )
+
+                        }
+
+                        export default Demo;
+// every parameter we pass its available in useParams hook.so we store the url parameter in a variable which we getting from useParams hook. like this : let data = useParams();
+// so useParams hook give us an object with the properties which is nothing but our value of url parameter.
+// so we can also pass data through url into component,we expect that when we calling the <Demo/> component we also pass "/demo/:name" a data through the url.
+// & inside the Demo component to use that url parameter or access the parameter we have to use useParams hook which has all the parameters in the url.
+// & useParams is hook provided by "react-router-dom".
+// in node js, based on url we are getting to the endpoints & passing any data through url as url parameter & receiving it by req.params 
+// in react js, based on url we are getting to the component & passing any data through url as url parameter & receiving it by useParams hook.
+
+
+// but now we are moving from one component to another manually, bt we have provide a way or link or button to automate that thing.
+// for that purpose, there is a "Link" component available in "react-router-dom". we have to import it from "react-router-dom".
+// in html we used <a> tag to go from one page to another page but here the whole concept is different,here its a single page & we want to go from one component to another component.
+// for that purpose only, to change the routes & component we have "Link" 
+// & link will help us to change the proper routes so that we dont have to go to browser & write down the url.
+// link component have a "to" attribute. in "to" attribute we have mentioned the path or url from which component it should go or link.
+// like this:   
+
+                import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
+
+                      <BrowserRouter>
+        
+                            <ul>
+                                <li>
+                                    <Link to="/user"> User</Link>
+                                </li>
+                                <li>
+                                    <Link to="/demo/Subrato"> Demo</Link>
+                                </li>
+                                <li>
+                                    <Link to="/data"> Data</Link>
+                                </li>
+                            </ul>
+                        
+                            <Routes>
+
+                            <Route path='/user' element={<User/>}/>
+                            <Route path='/demo/:name' element={<Demo/>}/>
+                            <Route path='/data' element={<Data/>}/>
+
+                            </Routes>
+                        
+                        </BrowserRouter>
+
+// we have to put the link into BrowserRouter component because it is where all the components only loaded or we can put it any other component.
+
+
+
+// there are two ways from move one page to other page
+// 1st is by using <a href=""> tag which produce that link to move to one other page.
+// 2nd is by using window.location, its used when user want to move to any page internally,suppose it does something & based on that action its wanna move to other page.
+// similarly in react there is a routes to link one component to other which link way.
+
+
+
+// there are 3 ways we can go to any routes :
+// 1st go to any browser & write down the url manually.
+// 2nd create <a> tag or Link component to go to any page or component.
+// 3rd write a program that can move us one page to other page or one component to other component. its a internal programitical way.

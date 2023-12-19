@@ -1,0 +1,242 @@
+// how to create our own component & how to render it in some other component
+// what are props 
+// how to display array of data
+
+
+// how to create our own component & how to render it in some other component:
+// in React,if we are doing functional way, a component is nothing but a function which returns some JSX that will be the output of the component & it also carries the data & functionality of the component
+// here we are creating a JS file Demo.js,it simply a file inside this we create our component
+// as we know that a component is a function so we can create multiple component or functions inside a single JS file but we should not follow that approach 
+// we should create a single component in a single JS file & by doing this its lots easier to understand how many components we have,maintain our code properly & by reading the file name we can understand what component is there
+// React is also following this approach there file name App.js & there component name is App()
+// so we create our component like this:
+                                            function Demo(){
+
+                                                return(
+
+                                                    <div>
+                                                        <h1>Demo Component</h1>
+                                                    </div>
+
+                                                )
+
+                                            }
+
+                                            export default Demo;
+// component is nothing but a function,so it start with function keyword then our component name 
+// & its not a normal function its a component so it will return JSX
+// inside return there will be only a singe parent JSX
+// & to use it anywhere & render it we have to export it 1st, by export default Demo;
+// & also our file name & component name should be start with capital letter,this is the React approach of creating files & components
+// so we create our Demo component but we still not render it anywhere
+// untill now, App() component is the only component that render in the index page 
+// so now to render Demo() component we have to render it into App() component which is our main component
+// so we have to 1st import Demo() component into App.js file like this: import Demo from './Demo';
+// now after importing it since its a component we can directly use it as a tag like this: <Demo/>
+// now wherever we try to render this <Demo/> in App.js file exact in that position Demo() component JSX will rendered & it will show output
+// like this:
+                                function App() {
+
+                                    let name="Subrato";
+                                    
+                                    function doSomething(country){
+                                        console.log(country);
+                                    }
+
+                                    return (
+                                        <div className="App">
+                                        <h1>App Component</h1>
+                                        <h2>{name}</h2>
+
+                                        <button onClick={doSomething.bind(this,"India")}>Click</button>
+
+                                        <button onClick={(event)=>{
+                                            console.log(event);
+                                            doSomething("India")}}>Click Me</button>
+
+                                        <Demo/>
+
+                                        </div>
+
+
+                                    );
+                                    }
+
+
+
+// props:
+// props stands for properties & every component we write or create has it 
+// just like <input type="text"> this "type" is a attribute or we can also say that its a property 
+// features,property,attributes one & a same thing
+// even objects have properties,that means everything in the world have properties
+// & because of there property they are known what they are 
+// or we can write this <input type="password">
+// so browser understand this code,where whatever we type convert it into a hidden text
+// so  type="password" this is the property of input tag 
+// this is what we are writing but somewhere internally browser understand this code & creating a input field for us with hidden text feature so when we write something it convert to hidden text
+// somewhere there will be a code that understand that line & creating input field for us but its inside the browser
+// so this type="password" is nothing but a way of passing data to a input program
+// so property is basically the kind of data we have 
+// so just like that every component we create, also has properties
+// so we can also pass properties(basically data) like this: <Demo name="Subrato"/>
+// this is not a html tag,this is our own component so we can pass whatever property we want
+// so what we doing is, Demo is our tag & we are passing name property into it & in name property we pass data 
+
+// now the data passing through name property we have to handle it:
+// so whenever we want to used the property that are getting pass through the component while component rendering they are all available in the parameter called props inside Demo() function
+// so whatever we pass through the component as property that available inside props object as a parameter now we can use it 
+// like this:
+                        function Demo(props){
+
+                            console.log(props);
+                            console.log(props.name);
+
+                            return(
+
+                                <div>
+                                    <h1>Demo Component</h1>
+                                </div>
+
+                            )
+
+                        }
+// so basically props are giving us or helping us to give properties to the components while rendering it
+// props is a inbuilt object & we can also name it anything
+
+// Main aim of props:
+// props to components are just like parameter to function
+// & the purpose of parameter is to passing data from outside to inside the function
+// similarly aim of props is to passing data from one component to other component
+// like we can say the data we are passing through to the Demo component,but right now we are in App component
+// so we can say that we are passing data from one component to other component but mostly from parent component to child component
+// in this case, from App component to the Demo component
+
+// how to use props:
+// we can show the property data while rendering the component inside the Demo component JSX using curly braces 
+// like this:  <h1>{props.name}</h1>
+// we can use this Demo component multiple times inside the App component(which is our main component) & we can pass multiple data as property through it 
+// like this:       <Demo name="Subrato" age="26"/>
+                    <Demo name="Subu" age="26"/>
+// each times the Demo component rendered it will show different data as an output
+// like this:
+                function Demo(props){
+
+                    return(
+
+                        <div>
+                            <h1>{props.name}</h1>
+                        </div>
+
+                    )
+
+                }
+
+
+
+
+// how to pass array of data into a component:
+// 1st we have to prepare array of objects inside Data component.
+// like this:     let avengers=[
+        {name:"Thor",planet:"Asgard",age:1500},
+        {name:"Thanos",planet:"Titan",age:1000},
+        {name:"Grandmaster",planet:"Shakar",age:2000}
+    ]
+// then we have to loop through them & to loop through any array of objects we can use forEach,map or filter function
+// but here we are gonna use map function over forEach function because its always return 
+// & as we know that to integrate javascript in JSX we use curly braces{} & to integrate JSX into javascript we use return()
+// we are gonna write out code like this :
+
+                                            function Data(){
+
+                                                let avengers=[
+                                                    {name:"Thor",planet:"Asgard",age:1500},
+                                                    {name:"Thanos",planet:"Titan",age:1000},
+                                                    {name:"Grandmaster",planet:"Shakar",age:2000}
+                                                ]
+
+                                                return(
+                                                    <div>
+                                                        <h1>Displaying Data</h1>
+
+                                                        {
+                                                            avengers.map((avenger,index)=>{
+
+                                                                return(
+                                                                    <div className="avg">
+                                                                        
+                                                                        <p>{avenger.name}</p>
+                                                                        <p>{avenger.planet}</p>
+                                                                        <p>{avenger.age}</p>
+
+                                                                    </div>
+                                                                )
+
+                                                            })
+                                                        }
+
+                                                    </div>
+                                                )
+
+                                            }
+// but we are getting a error msg (Warning: Each child in a list should have a unique "key" prop) prob means property
+// when we generate JSX using loop so everytime each child need a key property
+// see here div is our parent element & its has some child element & everytime we loop it generate different properties
+// it should have a unique key property that means we know it will generate different things by looping again & again 
+// & everytime they should have a different key & this can possible by key={index}
+// take index as your key so 1st time loop generate it has different index as key then next time loop generate it has different index as key.
+// we have to give this key property to only to the parent element
+// like this:
+                                        return(
+                            <div className="avg" key={index}>
+                                
+                                <p>{avenger.name}</p>
+                                <p>{avenger.planet}</p>
+                                <p>{avenger.age}</p>
+
+                            </div>
+                        )
+
+
+
+
+// how react works:
+// DOM~ document object model 
+// our browser convert our html code into a tree & that tree rendered the output
+// javascript basically manipulate the DOM
+// in a normal html,
+// we write html then browser convert it into a tree & based on that tree the browser reads it & finally generate a output
+// now react does the same thing
+// at the end to see web page output DOM will always there,either we use normal html & css or angular or vue or react at the end it generate DOM
+// that is displayed into the webpage
+
+
+// virtual DOM:
+// see react also generate DOM that generate output
+// but in case of react there is some change in that thing
+// a react application 1st convert into virtual DOM, which exact copy of real DOM but more ligth weight & more easy to handle 
+// so when a react application complied its generate two things 1st a virtual DOM generated then based on that virtual DOM the real DOM is generated then based on that real DOM our output is generated.
+// in real html only the real DOM generated & based on that our output is generated.
+
+// what is use of virtual DOM:
+// 1st thing is that virtual DOM is very cheap copy of real DOM but it have all the components
+// so what is react is does?
+// when react application complied react is not directly going to the real DOM because its heavy instead of that it going to virtual DOM
+// make changes according to all the elements changes into the virtual DOM & then react compares the virtual DOM to the real DOM
+// so instead of loading everything in the real DOM it compares & make changes wherever are changes
+// if one element changes in virtual DOM react compares with real DOM then replace that element from real DOM then replace with virtual DOM element.
+// so we are not changing everything we are changing the things that been actually changed.
+// so react instead of refreshing the real DOM it refreshing the virtual DOM then the both DOM's compares & only whatever changes have been made in virtual DOM its been changes in real DOM then that thing is load.
+// this is why react application are so fast because of virtual DOM.
+
+
+
+
+// why react need a unique key value for each JSX we generate by loop:
+// in react if we want comparison between virtual DOM & real DOM happen correctly for that every element should have their own identity 
+// so basically by default every element have their own identity (button,h1 etc that we create)
+// but in react when we generate element using loop in that time react failed to understand the unique identity of element
+// because this elements generate through loop every elements have same identity so its tough for react to understand & identity elements separately
+// so thats why react says give them a unique key so they can identify by properly at the end when the final virtual DOM generate
+// so in our code map function generate 3 element because we have 3 objects but it will have same identity thats why react says to use unique key 
+// so when final virtual DOM generated it can be identify by react in a efficient way.
+

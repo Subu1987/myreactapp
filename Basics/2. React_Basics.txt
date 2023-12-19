@@ -1,0 +1,153 @@
+ // preface: 
+// we have one single page that is index.html,inside it we have div with id root thats where everything goes.
+// then we have component that comes by default when we install React App.js
+// basically we have App.js component that goes into that div for output
+// basically whatever we write in that App.js component that rendered inside that div & thats how we get our output
+// so App.js our main component if we want we can write our whole code into this component
+// but its not good to create our whole application into a single component,then what is the use of React(reusability,faster) 
+// thats why we divide our application into smaller components & we create them separetely(Header.js,Footer.js etc)
+// & depending on what to display we put our components inside the App.js main component
+// so, single single component code render in App.js component & the whole App.js component render into index.html page with the help of index.js
+// & then some point of time we can remove component & add component as per need & thats how we change our output on the webpage
+// & because there is only one page at the end React application also called single page application(SPA)
+// rendering means loading or generating
+// re-rendering means refresh,reload
+
+// webpack:
+// webpack is nothing but module bundler or project bundler
+// when we run npm start,webpack is the compiler that comes when we install react 
+// basically its compiles,bundles our React project
+// so webpack 1st bundle the code,then complies it,then generate output files that viewed in the webpage
+// it generate output files & that what we see in the webpage
+// its basically tool that generate output assets that can be display in the webpage
+// webpack basically compiling our application,& generating require files that can be use for output
+// when we launch our React application we have to bundle it then uploaded on the server(it can be 5 files or 1 file also)
+// its like apk(android package manager) a zipped file thats holds all the files
+
+
+
+// className: for styling in normal HTML we use CSS class attribute,but JS is a programming language & class is the keyword that used in oops thats why for styling in React we will use className as an attribute
+
+// Exports & imports:here we creating files or components separetely,so use them anywhere we have to 1st exports them, then we have import them for using.
+// in node js,we exports them like this module.exports=App; import them like this const App=require('./App');
+// but in React, we exports them like this export default App; import them like this import App from './App';
+
+//component:
+// a component is nothing but a part of webpage lookwise & coding wise its nothing but HTML,CSS,JS
+// coding wise a component is nothing but a function,(it can be also be class)
+// component can be written in 2 ways-
+1) functions
+2) classes
+// defination: a component is nothing but the function which returns HTML that we want to display as an output for that component,& CSS of that can be written anywhere & the JS functionality of that can be written inside the function
+// since App.js returing a HTML,so wherever we use this component in that exact place we get the HTML with all its CSS & js functionality
+// so whenver we import a component & we want to render it or use it we use it like a tag <App/>(like this)
+// so we create a function or component that returns some HTML with all its CSS & JS functionality,we exports it,then we import it & we use it like a tag
+// & we can use the tag n-no of times if we want to loaded samething n-no of times
+// now return keyword can only return a single parent means all our elements need to enclosed in a one single parent
+
+
+// JSX:
+// javascript XML or javascript syntax extension
+// the thing we are using inside return keyword its look like HTML,works like HTML,easy like HTML but its not actually HTML
+// its simply something called as JSX(javascript XML or javascript syntax extension)
+// when we write HTML inside javascript we write it as a string inside double quote then we push it to HTML page to display it
+// so here how can we write HTML in javascript because its not HTML its something called as JSX
+// so what its look like <h1>App component</h1> actually like this: 
+// document.getElementById('one').createElement("h1","attribute","Subrato")
+// this is how we create elements using javascript
+// in createElement() function,1st parameter will be tagname,2nd parameter will be attribute,3rd parameter will text or value
+// this is what javascript internally follows to create a elements
+// now the thing is that React also used this method internally for creating elements because React also a javascript framework
+// so basically internally for every elements we create or write inside the return, internally for every elements there will be createElement(),appendChild() there is something like that
+// this is what React is doing internally
+// so React made this look like HTML & made it write like a HTML so that its easier for devoloper to understand & write,but this is not HTML its JSX
+// we are creating elements using javascript,using XML like structure 
+
+// babel:
+// Babel is a transpiler i.e. it converts the JSX to vanilla JavaScript. You can view babel as an intermediate step between your code and "executable" code. React also uses ES6, which is not supported by most of the browsers. Babel converts the ES6 code to a code which is compatible with the browsers
+// when we install React,there is engine called babel
+// & this convert JSX to javascript createElement code(internally its javascript) 
+// why it is called XML,because its a mark up language
+// & we can't called it HTML because HTML has predifined tags,here we writing tags but also writing our own tags 
+// we can say that JSX is combination of javascript & XML but it looks like HTML
+// XML is extensible markup language where we can write our own tags 
+// so we write something that looks like HTML but its not HTML,babel converts this JSX to corresponding code & this generate real HTML that is then displayed as output
+// & this is possible because of babel
+
+
+// how to display data :
+// now we create a variable let name=" Subrato" inside the function
+// we want to display this variable data into inside h2 tag how to do that
+// in vanilla javascript:
+// if we have a variable data in normal vanilla javascript,we want to show that data into HTML,then what to do ?
+// it will look like this: document.getElementByTagName('h2')[0].innerText=name;
+// in React:
+// to integrate a variable value inside a JSX element in React,its very simple we go & put curly braces & inside that we put our variable name 
+// like this:  <h2>{name}</h2>
+// this is the React way of displaying variable value in JSX
+// curly braces complete aim is not just this
+// we can also write javascript in between JSX, we can perform all map,looping,if-else logic inside this curly braces
+// we can write javascript in JSX why ? because this thing we see its not HTML its JSX,JSX is internally javascript
+// so React is giving us a way of integrate javascript with JSX,that is how we do with curly braces
+
+
+
+// how to create a function & call it in React:
+// 1st we create a function inside App.js component
+// like this:        function doSomething(){
+                        console.log("Hello!");
+                    };
+// now to call it in normal vanilla javascript:
+// we used a button tag,write onclick attribute then the function name with parenthesis within double quote
+// & in vanilla javascript, onclick attribute all letters is small
+// like this:  <button onclick="doSomething()">Click</button>
+// now to call it in React:
+// we used a button tag,write onClick attribute then the function name without parenthesis within curly braces
+// & in React,onClick attribute should be in camel casing
+// like this:  <button onClick={doSomething}>Click</button>
+// parenthesis not using because within JSX if we use function name & parenthesis then it will look like direct function call & when page load it executed instantly.
+
+
+
+// how to pass parameter in a function & used that value:
+// in vanilla javascript:
+// like this: <button onclick="doSomething(name)">Click</button>
+// within the paranthesis we can pass anything we want
+// in React:
+// we write javascript within JSX using curly braces & in javascript using paranthesis with function name means simply function called
+// so in this case,when the page load function called & data already console.
+// so React say that ignore the parenthesis with function within the curly braces
+// then how will we pass our parameters? there are two ways to do this 
+
+// 1st like this :  <button onClick={doSomething.bind(this,"India")}>Click</button>
+// here we used bind() function,inside bind() function 1st parameter will be always this keyword
+// this keyword means that the current element where our data will pass
+// & 2nd parameter will be the value, that we are passing into the function
+// bind() function is doing something argument binding not like data binding
+// we are binding,"India" value to "this" doSomething() function
+// so bind() function,binding "India" argument to doSomething() function,when this keyword means this current element button get Click
+// so we are binding this keyword & "India" both arguments together with the help of bind function
+// its means whenver button Click,the "India" argument passing to doSomething() function
+
+// 2nd like this: <button onClick={()=>{doSomething("India")}}>Click Me</button>
+// here, we are dynamatically creating a arrow function,so onClick will create this function & call it 
+// & inside that,we telling you call doSomething() function & pass the "India" data
+// so onClick calling a function & that function call our doSomething() function
+
+// event object:
+// that every function we called with event handler has a event object,if we want to pass we can pass if we dont want to pass we can ignore it
+// so onClick we are calling a arrow function,& it also have a event object available
+// either we can use or pass it into doSomething() function
+// like this:            <button onClick={(event)=>{
+                            console.log(event);
+                            doSomething("India")}}>Click Me</button>
+
+
+
+// summary:
+// what is webpack & babel 
+// what is component & JSX
+// how to pass data inside JSX
+// how to pass function inside JSX
+// how to pass argument within function inside JSX
+// how to use event object & know event handling

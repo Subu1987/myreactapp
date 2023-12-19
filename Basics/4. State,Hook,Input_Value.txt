@@ -1,0 +1,208 @@
+// states
+// hooks
+// how to read input feilds
+
+
+// state:
+// this is very important because React get his name because of this.
+// in general state means situation or condition 
+// a state means a conditional situation of a particular thing 
+// state ~ properties of particular things that decide the state or situation of that thing
+// every state in this world conclude of properties. 
+// like: how to know that someone's financial status or situation is good by knowing that how many cars,houses they have.so here cars,houses are the properties that defines that the persons financial status is good
+// state: its a collection of properties that defines our situation.
+
+// state in React:
+// in React the real entities we have components.everything is build around React is components.components are the things in React.
+// components have state,so components have situation based on their properties.
+// components - state - properties
+// functions/classes - state - variable/attributes
+// so programatically components are nothing but functions or classes & their state depending on variable/attributes which is nothing but properties
+// input type=text, here type is a attribute if we change the type the situation or condition of input changes
+// depending on a values of properties state of components also changes
+// understanding in React wise, components have state & state is something that define by properties. & if the properties changes that means state is change.
+// for example :if we have hut our state is different, if we have banglow our state is different.so same properties values is changing & depending on the values changing our state is changing.if we have 10/- our state different, if we have 10lac our state is different.so here also same property money but values is different & depending on values our state is different. 
+// 1. normal variable
+// 2. state variable
+
+
+// normal variable: if we create variable like this: let name = ""; react will wont considered it as a part of state.so if the value of normal variable changes components state wont change cause state does something meaningfull. & by creating normal variable we are just holding some value into it which doesnt effect state of components.
+
+// state variable / Hook : if we want to create a variable that should considered as a part of the state of that particular component.so that if value of that variable changes our component should reflect it,our component should understand that something got change,the state of component change.for that React has given us something called as Hook. 
+& Hook is nothing but something like a function.its a inbuilt functionality that helps us to do something.
+
+/************************************ useState ****************************************/
+
+// useState : in react there is a inbuilt hook that help us to create state variables.to create a state variable with the help of useState inbuilt hook so that it reflect in component.1st we have to import it from "react" package.
+// useState is a function that basically hook that defines state variables.
+// like this:  import { useState } from 'react';
+// then create a array,1st parameter will be a variable,2nd parameter will be a always a function.this is the only function that we are gonna use to change the value of variable.then equale to useState("hello"); "hello" is a initial parameter pass through it.
+
+// like this : let [data,setData]= useState("hello");
+// here data is our state variable, setData is function which is use to change the value of data variable.we can name it anything.this is the syntax of using the useState() hook.
+// so internally its look like this ~ 
+                                          let data = "hello";
+                                            function setData(a){
+                                                data=a;
+                                            };
+// because of this useState() hook this "data" variable considered as a state variable.& the only difference between normal variable & state variable is that while changing the value of normal variable component doesnt effected or change. but while changing the value of state variable component re-rendered itself.& that's how we get to know the state has changed.
+// the main purpose of using state variable is to re-rendered the component.
+
+// summary of state & hook : a condition or situation defined by the properties of that element. now in React components have properties & if the properties value changes component situation changes or state changes that's why component has to re-rendered itself.normal variable created normally & state variable created using useState() hook.so basically at the end its a data.
+
+// in case of normal variable : 
+
+                                
+                                    import './App.css';
+
+                                    function App() {
+
+                                    let name="Subrato";
+                                    
+                                    function changeName(n){
+                                        name=n;
+                                        console.log(name);
+                                    }
+
+
+                                    return (
+                                        <div className="App">
+                                            <h1>{name}</h1>
+                                            <h1>{data}</h1>
+                                            
+                                            <button onClick={()=>{
+                                                changeName("piyush");
+                                            }}>
+
+
+                                            Change Name</button>
+                                        </div>
+
+                                    );
+                                    }
+
+                                    export default App;
+
+// we can see that by click the button we are calling the changeName() function its only change the value of name variable internally but component doesnt effected or changed. because this is normal variable.
+
+
+// in case of state variable: 
+
+                                
+                                    import './App.css';
+                                    import { useState } from 'react';
+
+
+                                    function App() {
+
+                                    let name="Subrato";
+                                    
+                                    function changeName(n){
+                                        name=n;
+                                        console.log(name);
+                                    }
+
+                                    let [city,setCity]= useState("Kolkata");
+
+
+                                    return (
+                                        <div className="App">
+                                            <h1>{name}</h1>
+                                            
+                                            <button onClick={()=>{
+                                                changeName("piyush");
+                                            }}>
+                                                Change Name
+                                            </button>
+
+
+                                            <h1>{city}</h1>
+                                            <button onClick={()=>{
+                                                setCity("Serampore");
+                                            }}>
+                                                Change City
+                                            </button>
+
+                                        </div>
+
+
+                                    );
+                                    }
+
+                                    export default App;
+
+// in case of normal variable, we create a function to change the value of normal variable, but in case state variable a function already defined,we just have to use it to change the value of state variable. like this : setCity("serampore");
+// wherever the state variable used at that placed the value got changed because of that component re-rendered it understood that value of state variable changes so component refreshed itself to showcase the changes.
+// component refreshed to reflect that state changes that what a state variable do.
+// that's why react called React, component changes when state changes.if the state is change component reacts.
+// why its named hook: as we know hooks are nothing but just like a function because we connect to them & use them.we hooks up.what we do with useState() hook, we connect with it & use it.useState is the 1st hook that created.
+
+
+/************************************ useEffect ****************************************/
+// life cycle of a component: everything in this world have life cycle.as per human life birth,lifespan,death.similarly in case of component 1st its loads,then its worked or update,then unload.before introduction of hooks peoples are mainly used class based components because of managing the life cycle of components is not possible in function based component.
+// components also have life cycle when the components loads thats when its life cycle start,then we switch to some other component or close the component thats when it life cycle end. 
+// so life cycle will happening we cant do anything with that components loads & its unload so we dont handle it, it just going on.
+// in that life cycle, based on different events we want to perform different things.like when page loads we perform something,when page get updated we want to do something or when the page unload we want to do something.
+// so, its very easy in class based components but no so easy in function based components thats why peoples are not using function based components but in 2019 react introduce something called as useEffect
+// useEffect is a hook helps us to perform something on a different events of life cycle of a components.
+// life cycle of components
+    1. Mounting
+    2. Reloading / update
+    3. Unmounting
+// these are the 3 different events of life cycle of a components, & on this 3 different events we want to perform something & that can be possible using useEffect hook.
+
+
+// how to use useEffect hook :
+// 1st case:
+// 1st we have to import it from react package. like this:  import { useEffect } from 'react';
+// useEffect() hook, 1st parameter of is a callback function & whatever we want to perform something we have write inside of it. like this :
+                                                                 useEffect(()=>{
+                                                                        console.log("useEffect hook get called")
+                                                                });
+
+// by default, useEffect called when
+// Mounting & updating
+
+
+
+// 2nd case: 
+// when we add a 2nd parameter to it, a blank array. like this: 
+                                                                useEffect(()=>{
+                                                                    console.log("useEffect hook get called")
+                                                                },[]);
+// but this time useEffect hook get called only on Mounting but not for updating.
+// whenever we want to perform something when the component loads for the 1st time pass a blank array.
+// whenever a state variable value change state changes of that component so that component get re-rendered or update or reload that means life cycle get to know component updated or triggered & its calles the useEffect() hook.
+
+
+
+// 3rd case:
+// if we pass a state variable into that blank array,like this: 
+                                                                  useEffect(()=>{
+                                                                    console.log("useEffect hook get called");
+                                                                },[name]);
+// then,only when the value of state variable that mention into this array changes & because of that component updated only that time useEffect() get called. & by default for Mounting or loading for 1st time it always getting called.
+// we can mention as many as state variables as we can.
+// when the value of state variable changes, it triggered the component update, & because of component update useEffect hook getting called.useEffect hook is for life cycle of components not for value changes of variable.
+// & we can use as many as useEffect hooks as we want.
+// useEffect also called as a side effect function. cause we intentionally not want to do it.whenever components Mounting or updating useEffect hook getting called.
+
+
+
+/************************************ how to read input fields ****************************************/
+// in vanilla javascript what we do, we simply give a id or class to the element then used document.getElementById("myText").value to get the value of that input field.
+// but in react here we dont have id's & we dont use className to get input value instead of that what we do :
+// we create a function & pass the value as a parameter into it, & we know that we can store it into a normal variable or console it.
+// like this: 
+                            function readValue(value){
+                console.log(value);
+            }
+// then in the element a event handler onChange,means when we change a Value it called a function & we have the event object available.
+// whatever primary function we are calling on any html element event object is available
+// so the event object is available as a 1st argument to the primary function we are calling using any event handler in any element.
+// inside the curly braces we are calling the readValue(event.target.value) function
+// where event is the whole event object having the all information of onChange event,target represent the element & value of input.
+// like this: 
+                <input type="text" onChange={(event)=>{
+                    readValue(event.target.value);
+                }}></input>
